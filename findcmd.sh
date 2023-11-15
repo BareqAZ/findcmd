@@ -1,5 +1,15 @@
 #!/bin/bash
 
+[[ -z $* ]] && {
+printf "findcmd 1.0
+\e[1;33mUsage:\e[0m
+    \e[1;32m$(basename $0)\e[0m <command>
+
+\e[1;33mUsage:\e[0m
+    \e[1;32m$(basename $0)\e[0m xfreerdp
+"
+exit 2
+}
 
 QUERY=$(curl -s https://command-not-found.com/"$1" | grep "<code>.*</code>" | sed '/"$1"/d;s/<code>//;s/<\/code>//;/$^/d')
 ARCH=$(printf "$QUERY" | grep -P -o -m 1 "pacman .*$")
